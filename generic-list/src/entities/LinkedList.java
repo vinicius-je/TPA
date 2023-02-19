@@ -49,7 +49,7 @@ public class LinkedList<T extends Comparable<T>> {
 
         while(current != null){
             if(current.getValue().equals(node.getValue())){
-                if(current == this.first.getValue()){
+                if(current == this.first){
                     this.first = current.getNext();
 
                     if(current == this.last){
@@ -57,9 +57,7 @@ public class LinkedList<T extends Comparable<T>> {
                     }
                 }
                 else{
-                    node.setNext(current.getNext());
-                    previous.setNext(node);
-    
+                    previous.setNext(current.getNext());
                     if(current == this.last){
                         this.last = previous;
                     }

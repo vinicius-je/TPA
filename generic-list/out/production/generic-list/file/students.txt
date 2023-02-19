@@ -1,0 +1,7 @@
+Vinicius,222,10
+Marcos,333,10
+Maciel,111,10
+Bruno,444,10
+Eduardo,666,10
+Isabella,555,10
+Lucas,777,10

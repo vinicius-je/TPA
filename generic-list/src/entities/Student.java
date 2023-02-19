@@ -32,12 +32,21 @@ public class Student implements Comparable<Student> {
     }
 
     @Override
-    public String toString() {
-        return "Student [name=" + name + ", id=" + id + ", score=" + score + "]";
+    public int compareTo(Student other) {
+        return Integer.compare(this.id, other.getId());
     }
 
     @Override
-    public int compareTo(Student other) {
-        return Integer.compare(this.id, other.getId());
+    public boolean equals(Object other){
+        if(other instanceof Student){
+            return this.id.equals(((Student) other).getId());
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Student [name=" + name + ", id=" + id + ", score=" + score + "]";
     }
 }
