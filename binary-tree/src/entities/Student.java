@@ -1,6 +1,6 @@
 package entities;
 
-public class Student {
+public class Student implements Comparable<Student> {
     private Integer id;
     private String name;
     private Double testScore;
@@ -38,5 +38,10 @@ public class Student {
                 ", name='" + name + '\'' +
                 ", testScore=" + testScore +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Student o) {
+        return 0;
     }
 }
