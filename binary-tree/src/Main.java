@@ -29,5 +29,7 @@ public class Main {
         tree.displayInOrder();
         System.out.println("Height of the tree: " + tree.height());
         System.out.println("Number of elements in tree: " + tree.numberOfElements());
+        System.out.println("Smallest elements in tree: " + tree.smallest().getValue());
+        System.out.println("Biggest elements in tree: " + tree.biggest().getValue());
     }
 }

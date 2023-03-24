@@ -66,4 +66,18 @@ public class BinaryTree<T extends Comparable<T>> {
     public int numberOfElements(){
         return numberOfElements(root);
     }
+
+    public Node<T> smallest(){
+        Node<T> aux = root;
+        while(aux.getLeft() != null)
+            aux = aux.getLeft();
+        return aux;
+    }
+
+    public Node<T> biggest(){
+        Node<T> aux = root;
+        while(aux.getRight() != null)
+            aux = aux.getRight();
+        return aux;
+    }
 }
