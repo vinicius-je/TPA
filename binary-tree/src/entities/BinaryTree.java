@@ -41,8 +41,8 @@ public class BinaryTree<T extends Comparable<T>> {
 
     private int height(Node<T> current){
         if(current == null){
-            return -1;
-        } else if (current.getLeft() == null && current.getRight() == null) {
+            return 0;
+        }else if (current.getLeft() == null && current.getRight() == null) {
             return 0;
         }
         int left = height(current.getLeft());
@@ -52,5 +52,18 @@ public class BinaryTree<T extends Comparable<T>> {
 
     public int height(){
         return height(root);
+    }
+
+    private int numberOfElements(Node<T> current){
+        if(current == null){
+            return 0;
+        }
+        int left = numberOfElements(current.getLeft());
+        int right = numberOfElements(current.getRight());
+        return left + right + 1;
+    }
+
+    public int numberOfElements(){
+        return numberOfElements(root);
     }
 }

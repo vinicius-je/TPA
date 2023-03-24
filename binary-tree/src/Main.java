@@ -28,5 +28,6 @@ public class Main {
 
         tree.displayInOrder();
         System.out.println("Height of the tree: " + tree.height());
+        System.out.println("Number of elements in tree: " + tree.numberOfElements());
     }
 }
