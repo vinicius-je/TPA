@@ -1,4 +1,5 @@
 import entities.BinaryTree;
+import entities.CompareById;
 import entities.CompareByName;
 import entities.Student;
 
@@ -8,9 +9,9 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        BinaryTree<Student> tree = new BinaryTree<Student>(new CompareByName());
+        BinaryTree<Student> tree = new BinaryTree<Student>(new CompareById());
 
-        String path = "src\\students.txt";
+        String path = "src\\teste.txt";
 
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line = br.readLine();
@@ -26,5 +27,6 @@ public class Main {
         }
 
         tree.displayInOrder();
+        System.out.println("Height of the tree: " + tree.height());
     }
 }

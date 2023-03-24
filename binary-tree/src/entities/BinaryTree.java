@@ -38,4 +38,19 @@ public class BinaryTree<T extends Comparable<T>> {
     public void displayInOrder(){
         displayInOrder(this.root);
     }
+
+    private int height(Node<T> current){
+        if(current == null){
+            return -1;
+        } else if (current.getLeft() == null && current.getRight() == null) {
+            return 0;
+        }
+        int left = height(current.getLeft());
+        int right = height(current.getRight());
+        return Math.max(left, right) + 1;
+    }
+
+    public int height(){
+        return height(root);
+    }
 }
