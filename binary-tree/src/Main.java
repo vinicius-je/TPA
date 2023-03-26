@@ -35,9 +35,13 @@ public class Main {
 //        System.out.println("Number of elements in tree: " + treeById.numberOfElements());
 //        System.out.println("Smallest elements in tree: " + treeById.smallest().getValue());
 //        System.out.println("Biggest elements in tree: " + treeById.biggest().getValue());
-        treeById.searchById(8);
-        treeById.searchById(29);
-        treeByName.searchByName("Carlos Santos");
-        treeByName.searchByName("Vinicius");
+//        treeById.searchById(8);
+//        treeById.searchById(29);
+//        treeByName.searchByName("Carlos Santos");
+//        treeByName.searchByName("Vinicius");
+        System.out.println("Tree by id");
+        treeById.statistic();
+        System.out.println("Tree by name");
+        treeByName.statistic();
     }
 }

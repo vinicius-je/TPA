@@ -113,4 +113,11 @@ public class BinaryTree<T extends Comparable<T>> {
             aux = aux.getRight();
         return aux;
     }
+
+    public void statistic(){
+        System.out.println("Number of elements in tree: " + this.numberOfElements());
+        System.out.println("Height of the tree: " + this.height());
+        System.out.println("Biggest elements in tree: " + this.biggest().getValue());
+        System.out.println("Smallest elements in tree: " + this.smallest().getValue());
+    }
 }
