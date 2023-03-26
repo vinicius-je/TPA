@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.Comparator;
+import java.util.LinkedList;
 
 public class BinaryTree<T extends Comparable<T>> {
     private Node<T> root;
@@ -70,6 +71,47 @@ public class BinaryTree<T extends Comparable<T>> {
 
     public void displayInOrder(){
         displayInOrder(this.root);
+    }
+
+//    public void displayInLevel(){
+//        Node<T> current = root;
+//        while (current != null){
+//            System.out.println(current.getValue());
+//            if(current.getLeft() != null){
+//                System.out.println(current.getLeft().getValue());
+//            }
+//            if(current.getRight() != null){
+//                System.out.println(current.getRight().getValue());
+//            }
+//
+//            if(current.getLeft().getLeft() != null) {
+//                current = current.getLeft().getLeft();
+//            }else if (current.getLeft().getRight() != null){
+//                current = current.getLeft().getRight();
+//            }else if(current.getRight().getLeft() != null){
+//                current = current.getRight().getLeft();
+//            }else{
+//                current = current.getRight().getRight();
+//            }
+//        }
+//    }
+
+    public void displayByLevel(){
+        LinkedList<Node<T>> students = new LinkedList<>();
+        students.add(root);
+
+        while(!students.isEmpty()){
+            Node<T> current = students.getFirst();
+            System.out.println(current.getValue());
+            students.removeFirst();
+
+            if(current.getLeft() != null){
+                students.addLast(current.getLeft());
+            }
+            if(current.getRight() != null){
+                students.addLast(current.getRight());
+            }
+        }
     }
 
     private int height(Node<T> current){
