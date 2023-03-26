@@ -7,4 +7,4 @@
 6;Fernando Rodrigues;8.5
 3;Carlos Santos;9.0
 8;Helena Costa;6.0
-9;Gustavo Oliveira;9.5
+7;Gustavo Oliveira;9.5

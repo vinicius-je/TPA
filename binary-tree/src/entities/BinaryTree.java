@@ -27,6 +27,32 @@ public class BinaryTree<T extends Comparable<T>> {
         root = insert(root, newNode);
     }
 
+    //delete
+
+
+    public void searchById(Integer id){
+        Node<T> searchNode = new Node<T>((T) new Student(id, null, null));
+        Node<T> current = root;
+        int elements = 0;
+
+        while(current != null){
+            if(comp.compare(current.getValue(), searchNode.getValue()) == 0){
+                System.out.println(current.getValue());
+                System.out.println("Number of elements traversed: " + elements);
+                return;
+            }else if(comp.compare(current.getValue(), searchNode.getValue()) > 0){
+                current = current.getLeft();
+            }else{
+                current = current.getRight();
+            }
+            elements++;
+        }
+        if(current == null){
+            System.out.println("Element not found in tree");
+            System.out.println("Number of elements traversed: " + elements);
+        }
+    }
+
     private void displayInOrder(Node<T> current){
         if(current != null){
             displayInOrder(current.getLeft());
