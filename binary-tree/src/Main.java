@@ -9,28 +9,35 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        BinaryTree<Student> tree = new BinaryTree<Student>(new CompareById());
+        BinaryTree<Student> treeById = new BinaryTree<Student>(new CompareById());
+        BinaryTree<Student> treeByName = new BinaryTree<Student>(new CompareByName());
 
         String path = "src\\teste.txt";
 
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            //Read the file index
             String line = br.readLine();
+            //Read the first student data
             line = br.readLine();
             while (line != null){
                 String data[] = line.split(";");
                 Student student = new Student(Integer.parseInt(data[0]), data[1], Double.parseDouble(data[2]));
-                tree.insert(student);
+                treeById.insert(student);
+                treeByName.insert(student);
                 line = br.readLine();
             }
         }catch (IOException e){
             System.out.println("Error: "+ e.getMessage());
         }
 
-        tree.displayInOrder();
-        System.out.println("Height of the tree: " + tree.height());
-        System.out.println("Number of elements in tree: " + tree.numberOfElements());
-        System.out.println("Smallest elements in tree: " + tree.smallest().getValue());
-        System.out.println("Biggest elements in tree: " + tree.biggest().getValue());
-        tree.searchById(6);
+//        treeById.displayInOrder();
+//        System.out.println("Height of the tree: " + treeById.height());
+//        System.out.println("Number of elements in tree: " + treeById.numberOfElements());
+//        System.out.println("Smallest elements in tree: " + treeById.smallest().getValue());
+//        System.out.println("Biggest elements in tree: " + treeById.biggest().getValue());
+        treeById.searchById(8);
+        treeById.searchById(29);
+        treeByName.searchByName("Carlos Santos");
+        treeByName.searchByName("Vinicius");
     }
 }

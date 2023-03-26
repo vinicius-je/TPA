@@ -10,6 +10,15 @@ public class Student implements Comparable<Student> {
         this.name = name;
         this.testScore = testScore;
     }
+
+    public Student(Integer id){
+        this.id = id;
+    }
+
+    public Student(String name){
+        this.name = name;
+    }
+
     //Getters
     public Integer getId() {
         return id;
