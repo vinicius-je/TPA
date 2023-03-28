@@ -34,9 +34,18 @@ public class Main {
 //        treeById.searchById(29);
 //        treeByName.searchByName("Carlos Santos");
 //        treeByName.searchByName("Vinicius");
-        System.out.println("Tree by id");
+
+//        System.out.println("Tree by id");
+//        treeById.statistic();
+//        treeById.displayByLevel();
+
+        treeByName.removeByName("José Pereira");
+        treeByName.displayInOrder();
+        treeByName.statistic();
+
+        treeById.removeById(14);
+        treeById.displayInOrder();
         treeById.statistic();
-        treeById.displayByLevel();
 
 //        System.out.println("Tree by name");
 //        treeByName.statistic();

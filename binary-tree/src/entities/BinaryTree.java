@@ -28,7 +28,39 @@ public class BinaryTree<T extends Comparable<T>> {
         root = insert(root, newNode);
     }
 
-    //delete
+    public void removeById(Integer id){
+        Node<T> target = new Node<T>((T) new Student(id));
+        remove(root, target);
+    }
+
+    public void removeByName(String name){
+        Node<T> target = new Node<T>((T) new Student(name));
+        remove(root, target);
+    }
+
+    private Node<T> remove(Node<T> current, Node<T> target){
+        if(current == null){
+            return current;
+        }
+
+        if(comp.compare(current.getValue(), target.getValue()) < 0){
+            current.setRight(remove(current.getRight(), target));
+        } else if (comp.compare(current.getValue(), target.getValue()) > 0){
+            current.setLeft(remove(current.getLeft(), target));
+        } else {
+            System.out.println("Element removed: " + current.getValue());
+            if (current.getLeft() == null){
+                return current.getRight();
+            } else if (current.getRight() == null) {
+                return current.getLeft();
+            } else {
+                Node<T> aux = this.smallest(current.getRight());
+                current.setValue(aux.getValue());
+                current.setRight(remove(current.getRight(), aux));
+            }
+        }
+        return current;
+    }
     public void searchElement(Node<T> target){
         Node<T> current = root;
         int elements = 0;
@@ -142,18 +174,24 @@ public class BinaryTree<T extends Comparable<T>> {
         return numberOfElements(root);
     }
 
+    private Node<T> smallest(Node<T> current){
+        while(current.getLeft() != null)
+            current = current.getLeft();
+        return current;
+    }
+
     public Node<T> smallest(){
-        Node<T> aux = root;
-        while(aux.getLeft() != null)
-            aux = aux.getLeft();
-        return aux;
+        return smallest(root);
+    }
+
+    private Node<T> biggest(Node<T> current){
+        while(current.getRight() != null)
+            current = current.getRight();
+        return current;
     }
 
     public Node<T> biggest(){
-        Node<T> aux = root;
-        while(aux.getRight() != null)
-            aux = aux.getRight();
-        return aux;
+        return biggest(root);
     }
 
     public void statistic(){
