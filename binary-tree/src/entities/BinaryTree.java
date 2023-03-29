@@ -38,29 +38,91 @@ public class BinaryTree<T extends Comparable<T>> {
         remove(root, target);
     }
 
-    private Node<T> remove(Node<T> current, Node<T> target){
-        if(current == null){
-            return current;
-        }
+    public void remove(Node<T> current, Node<T> target){
+        Node<T> father = null;
 
-        if(comp.compare(current.getValue(), target.getValue()) < 0){
-            current.setRight(remove(current.getRight(), target));
-        } else if (comp.compare(current.getValue(), target.getValue()) > 0){
-            current.setLeft(remove(current.getLeft(), target));
-        } else {
-            System.out.println("Element removed: " + current.getValue());
-            if (current.getLeft() == null){
-                return current.getRight();
-            } else if (current.getRight() == null) {
-                return current.getLeft();
-            } else {
-                Node<T> aux = this.smallest(current.getRight());
-                current.setValue(aux.getValue());
-                current.setRight(remove(current.getRight(), aux));
+        while(current != null && comp.compare(current.getValue(), target.getValue()) != 0){
+            father = current;
+            if(comp.compare(current.getValue(), target.getValue()) > 0){
+                current = current.getLeft();
+            }else{
+                current = current.getRight();
             }
         }
-        return current;
+
+        if (current == null){
+            System.out.println("Element not found!");
+            return;
+        }
+
+        //sheet
+        if(current.getLeft() == null && current.getRight()== null){
+            if(father != null){
+                if(comp.compare(current.getValue(), father.getValue()) < 0){
+                    father.setLeft(null);
+                }else{
+                    father.setRight(null);
+                }
+            }else{
+                root.setValue(null);
+            }
+        }else if(current.getLeft() == null || current.getRight()== null){ //one child
+            Node<T> child = null;
+            if(current.getLeft() != null){
+                child = current.getLeft();
+            }else{
+                child = current.getRight();
+            }
+
+            if(father != null){
+                if(comp.compare(current.getValue(), father.getValue()) < 0){
+                    father.setLeft(child);
+                }else{
+                    father.setRight(child);
+                }
+            }else{
+                root = child;
+            }
+        }else{ //two children
+            Node<T>minFather = current;
+            //smallest node at right side of the tree
+            Node<T> smallestNode = this.smallest(current.getRight());
+            current.setValue(smallestNode.getValue());
+
+            if(comp.compare(minFather.getLeft().getValue(), smallestNode.getValue()) == 0){
+                minFather.setLeft(smallestNode.getRight());
+            }else{
+                minFather.setRight(smallestNode.getRight());
+            }
+        }
+        System.out.println("Element removed: " + current.getValue());
     }
+
+//    private Node<T> remove(Node<T> current, Node<T> target){
+//        if(current == null){
+//            return null;
+//        }
+//
+//        if(comp.compare(current.getValue(), target.getValue()) < 0){
+//            current.setRight(remove(current.getRight(), target));
+//        } else if (comp.compare(current.getValue(), target.getValue()) > 0){
+//            current.setLeft(remove(current.getLeft(), target));
+//        } else {
+//            Node<T> removed = current;
+//            System.out.println("Element removed: " + removed.getValue());
+//            if (current.getLeft() == null){
+//                return current.getRight();
+//            } else if (current.getRight() == null) {
+//                return current.getLeft();
+//            } else {
+//                Node<T> aux = this.smallest(current.getRight());
+//                current.setValue(aux.getValue());
+//                current.setRight(remove(current.getRight(), aux));
+//                return removed;
+//            }
+//        }
+//        return current;
+//    }
     public void searchElement(Node<T> target){
         Node<T> current = root;
         int elements = 0;
@@ -104,29 +166,6 @@ public class BinaryTree<T extends Comparable<T>> {
     public void displayInOrder(){
         displayInOrder(this.root);
     }
-
-//    public void displayInLevel(){
-//        Node<T> current = root;
-//        while (current != null){
-//            System.out.println(current.getValue());
-//            if(current.getLeft() != null){
-//                System.out.println(current.getLeft().getValue());
-//            }
-//            if(current.getRight() != null){
-//                System.out.println(current.getRight().getValue());
-//            }
-//
-//            if(current.getLeft().getLeft() != null) {
-//                current = current.getLeft().getLeft();
-//            }else if (current.getLeft().getRight() != null){
-//                current = current.getLeft().getRight();
-//            }else if(current.getRight().getLeft() != null){
-//                current = current.getRight().getLeft();
-//            }else{
-//                current = current.getRight().getRight();
-//            }
-//        }
-//    }
 
     public void displayByLevel(){
         LinkedList<Node<T>> students = new LinkedList<>();

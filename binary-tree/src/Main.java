@@ -39,13 +39,14 @@ public class Main {
 //        treeById.statistic();
 //        treeById.displayByLevel();
 
-        treeByName.removeByName("José Pereira");
         treeByName.displayInOrder();
         treeByName.statistic();
+        treeByName.removeByName("Isabela Fernandes");
+        treeByName.statistic();
 
-        treeById.removeById(14);
         treeById.displayInOrder();
         treeById.statistic();
+        treeById.removeById(14);
 
 //        System.out.println("Tree by name");
 //        treeByName.statistic();
