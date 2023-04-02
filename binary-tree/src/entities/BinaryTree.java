@@ -38,7 +38,7 @@ public class BinaryTree<T extends Comparable<T>> {
         remove(root, target);
     }
 
-    public void remove(Node<T> current, Node<T> target){
+    private void remove(Node<T> current, Node<T> target){
         Node<T> father = null;
 
         while(current != null && comp.compare(current.getValue(), target.getValue()) != 0){
@@ -123,7 +123,7 @@ public class BinaryTree<T extends Comparable<T>> {
 //        }
 //        return current;
 //    }
-    public void searchElement(Node<T> target){
+    private void searchElement(Node<T> target){
         Node<T> current = root;
         int elements = 0;
 
