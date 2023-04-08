@@ -42,11 +42,11 @@ public class Student implements Comparable<Student> {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", testScore=" + testScore +
-                '}';
+        return "Student [" +
+                "ID=" + id +
+                ", Name='" + name + '\'' +
+                ", Test Score=" + testScore +
+                ']';
     }
 
     @Override

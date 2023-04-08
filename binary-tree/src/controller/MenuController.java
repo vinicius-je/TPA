@@ -1,22 +1,20 @@
 package controller;
 
 import entities.BinaryTree;
-import entities.CompareById;
-import entities.CompareByName;
 import entities.Student;
 
-import java.io.Console;
+import java.io.*;
 
 public class MenuController {
 
-    BinaryTree<Student> treeById = new BinaryTree<Student>(new CompareById());
-    BinaryTree<Student> treeByName = new BinaryTree<Student>(new CompareByName());
-    Console con;
+    private BinaryTree<Student> treeById;
+    private BinaryTree<Student> treeByName;
+    public Console con;
 
-    public MenuController(Console con){
+    public MenuController(BinaryTree<Student> treeById, BinaryTree<Student> treeByName, Console con){
+        this.treeById = treeById;
+        this.treeByName = treeByName;
         this.con = con;
-        this.treeById = new BinaryTree<Student>(new CompareById());
-        this.treeByName = new BinaryTree<Student>(new CompareByName());
     }
 
     public void displayOptions() {
@@ -24,10 +22,16 @@ public class MenuController {
                 "\n\t[1] - Inserir\n\t[2] - Buscar\n\t[3] - Deletar" +
                 "\n\t[4] - Estatisticas\n\t[5] - Exibir em ordem" + 
                 "\n\t[6] - Exibir em nivel\n\t[7] - sair\n");
-
     }
 
     public void displayTreeOptions(){
+        System.out.println("\n\n\n" + "\t██████╗ ██╗███╗   ██╗ █████╗ ██████╗ ██╗   ██╗    ████████╗██████╗ ███████╗███████╗");
+        System.out.println("\t██╔══██╗██║████╗  ██║██╔══██╗██╔══██╗╚██╗ ██╔╝    ╚══██╔══╝██╔══██╗██╔════╝██╔════╝");
+        System.out.println("\t██████╔╝██║██╔██╗ ██║███████║██████╔╝ ╚████╔╝        ██║   ██████╔╝█████╗  █████╗  ");
+        System.out.println("\t██╔══██╗██║██║╚██╗██║██╔══██║██╔══██╗  ╚██╔╝         ██║   ██╔══██╗██╔══╝  ██╔══╝  ");
+        System.out.println("\t██████╔╝██║██║ ╚████║██║  ██║██║  ██║   ██║          ██║   ██║  ██║███████╗███████╗");
+        System.out.println("\t╚═════╝ ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝          ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝\n\n");
+
         System.out.println("\n\tSeleciona o modo de organização da arvore:" +
                 "\n\t[1] - Arvore por nome de aluno\n\t[2] - Arvore por matricula de aluno\n");
     }
@@ -50,6 +54,8 @@ public class MenuController {
             displayOrder(tree);
         }else if(option == 6){
             displayLevel(tree);
+        }else if(option == 7){
+            generateFile();
         }else{
             System.out.println("Opcao invalida");
         }
@@ -71,20 +77,20 @@ public class MenuController {
     public void searchStudent(int tree){
         if(tree == 1){
             String name = con.readLine("Insira o nome do aluno a ser buscado: ");
-            treeByName.searchByName(name);
+            treeByName.search(new Student(name));
         }else{
             Integer id = Integer.parseInt(con.readLine("Insira a matricula do aluno a ser buscado: "));
-            treeById.searchById(id);
+            treeById.search(new Student(id));
         }
     }
 
     public void removeStudent(int tree){
         if(tree == 1){
             String name = con.readLine("Insira o nome do aluno a ser removido: ");
-            treeByName.removeByName(name);
+            treeByName.remove(new Student(name));
         }else{
             Integer id = Integer.parseInt(con.readLine("Insira a matricula do aluno a ser removido: "));
-            treeById.removeById(id);
+            treeById.remove(new Student(id));
         }
     }
 
@@ -109,16 +115,22 @@ public class MenuController {
             treeById.displayByLevel();
     }
 
-//    public void limparTela(){
-//        try {
-//            if (System.getProperty("os.name").contains("Windows"))
-//                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-//            else
-//                Runtime.getRuntime().exec("clear");
-//        } catch (IOException e) {
-//            System.out.println("Error ao limpar a tela");
-//        } catch (InterruptedException e) {
-//            System.out.println("Error ao limpar a tela");
-//        }
-//    }
+    public void generateFile(){
+        File file = new File("src\\arquivoSaida.txt");
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+            treeById.writeFileInOrder(bw);
+        } catch (IOException e){
+            System.out.println("Erro ao gerar arquivo de saída: " + e.getMessage());
+        }
+    }
+
+   public static void limparTela() throws IOException, InterruptedException {
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("win")) {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } else {
+            Runtime.getRuntime().exec("clear");
+        }
+    }
 }
