@@ -14,19 +14,20 @@ public class BinaryTree<T extends Comparable<T>> {
         this.comp = comp;
     }
 
+    //método para inserir um elemento na árvore em nível.
     private Node<T> insert(Node<T> current, Node<T> newNode){
-        //caso o nó atual for nulo, o novo nó será retornado e inserido
+        //caso o nó atual for nulo, o novo nó será retornado e inserido.
         if(current == null){
             return newNode;
         }else if(comp.compare(current.getValue(), newNode.getValue()) < 0){
             //segue recursivamente para a sub árvore da direita
             current.setRight(insert(current.getRight(), newNode));
         }else{
-            //segue recursivamente para a sub árvore da esquerda
-            //caso o nó a ser inserido tiver o mesmo valor do nó atual, esse novo nó ficará a esquerda do atual
+            //segue recursivamente para a sub árvore da esquerda.
+            //caso o nó a ser inserido tiver o mesmo valor do nó atual, esse novo nó ficará a esquerda do atual.
             current.setLeft(insert(current.getLeft(), newNode));
         }
-        //retorna o nó atual para sua devida posição conforme o retorno recursivo
+        //retorna o nó atual para sua devida posição conforme o retorno recursivo.
         return current;
     }
 
@@ -35,9 +36,30 @@ public class BinaryTree<T extends Comparable<T>> {
         root = insert(root, newNode);
     }
 
+    //método para encontrar o pai de um nó
+    private Node<T> findParent(Node<T> current, Node<T> child) {
+        Node<T> father = null;
+    
+        while(current != null){
+            if(comp.compare(current.getValue(), child.getValue()) == 0){
+                return father;
+            }
+            father = current;
+            if(comp.compare(current.getValue(), child.getValue()) > 0){
+                current = current.getLeft();
+            }else{
+                current = current.getRight();
+            }
+        }
+        return current;
+    }
+
+    //método para remover um elemento da árvore
     private void remove(Node<T> current, Node<T> target){
         Node<T> father = null;
-
+        //lógica: enquanto o nó atual não for nulo e diferente do nó a ser removido,
+        //o nó atual é armazenado em uma variável(father) e então o nó atual passa a ser
+        //o próximo nó(filho) à direita ou à esquerda, irá depender do valor do nó a ser removido.
         while(current != null && comp.compare(current.getValue(), target.getValue()) != 0){
             father = current;
             if(comp.compare(current.getValue(), target.getValue()) > 0){
@@ -46,14 +68,19 @@ public class BinaryTree<T extends Comparable<T>> {
                 current = current.getRight();
             }
         }
-
+        //caso o loop finalize e o nó atual for nulo, significa que o elemento 
+        //não está na árvore e o método é finalizado, caso o elemento for econtrado
+        //ele estará armazenado na variável (current).
         if (current == null){
             System.out.println("Element not found!");
             return;
         }
 
-        //sheet
-        if(current.getLeft() == null && current.getRight()== null){
+        System.out.println("Element removed: " + current.getValue());
+        //caso o nó a ser removido for uma folha ou seja não tem filhos,
+        //será verificado em que direção se encontra o nó a ser removido em relação ao pai (direita/esquerda)
+        //e então o nó é removido
+        if(current.getLeft() == null && current.getRight() == null){
             if(father != null){
                 if(comp.compare(current.getValue(), father.getValue()) < 0){
                     father.setLeft(null);
@@ -63,7 +90,11 @@ public class BinaryTree<T extends Comparable<T>> {
             }else{
                 root.setValue(null);
             }
-        }else if(current.getLeft() == null || current.getRight()== null){ //one child
+        //caso o nó a ser removido possua um filho, é verificado a posição desse filho em relação 
+        //ao nó atual e então armazedo em uma variável(child), por conseguinte será verificado em que 
+        //direção se encontra o nó a ser removido em relação ao pai e o filho do nó a ser removido
+        //passa a ser filho do nó armazenado na variável father.
+        }else if(current.getLeft() == null || current.getRight() == null){
             Node<T> child = null;
             if(current.getLeft() != null){
                 child = current.getLeft();
@@ -78,21 +109,27 @@ public class BinaryTree<T extends Comparable<T>> {
                     father.setRight(child);
                 }
             }else{
-                root = child;
+                root = child; //caso o nó a ser removido for a raiz, o filho passará a ser a nova raiz.
             }
-        }else{ //two children
-            Node<T>minFather = current;
-            //smallest node at right side of the tree
-            Node<T> smallestNode = this.smallest(current.getRight());
-            current.setValue(smallestNode.getValue());
-
-            if(comp.compare(minFather.getLeft().getValue(), smallestNode.getValue()) == 0){
-                minFather.setLeft(smallestNode.getRight());
+        //caso o nó a ser removido possua dois filho, é solicitado o maior nó na sub árvore da esquerda,
+        //esse nó solicitado substituirá o nó a ser removido da árvore de modo que não impacte a
+        //organização da árvore binária.
+        }else{ 
+            Node<T> biggestNode = biggest(current.getLeft());
+            //pai do maior nó da sub árvore da esquerda.
+            Node<T> biggestNodeFather = findParent(current, biggestNode);
+            //troca de valor do nó atual com o nó solitiado(maior nó da sub árvore da esquerda).
+            current.setValue(biggestNode.getValue());
+            //verificação para identificar qual posição o "biggestNode" é filho
+            //do "biggestNodeFather", assim se for filho à direita do pai, o filho
+            //à esquerda do "biggestNode" se torna filho à direita do "biggestNodeFather",
+            //caso contrário o filho esquerdo do "biggestNode" se torna o novo filho esquerdo do "biggestNodeFather". 
+            if(comp.compare(biggestNodeFather.getRight().getValue(), biggestNode.getValue()) == 0){
+                biggestNodeFather.setRight(biggestNode.getLeft());
             }else{
-                minFather.setRight(smallestNode.getRight());
+                biggestNodeFather.setLeft(biggestNode.getLeft());
             }
         }
-        System.out.println("Element removed: " + current.getValue());
     }
 
     public void remove(T value){
@@ -100,6 +137,7 @@ public class BinaryTree<T extends Comparable<T>> {
         remove(root, target);
     }
 
+    //método para buscar um elemento na árvore
     private void searchElement(Node<T> target){
         Node<T> current = root;
         int count = 0;
