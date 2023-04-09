@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.util.Comparator;
 import java.util.LinkedList;
 
+/***********************************
+ * @Autor: Vinícius Estevam
+ ***********************************/
+
 public class BinaryTree<T extends Comparable<T>> {
     private Node<T> root;
     private Comparator<T> comp;
@@ -72,11 +76,11 @@ public class BinaryTree<T extends Comparable<T>> {
         //não está na árvore e o método é finalizado, caso o elemento for econtrado
         //ele estará armazenado na variável (current).
         if (current == null){
-            System.out.println("Element not found!");
+            System.out.println("Elemento nao encontrado!");
             return;
         }
 
-        System.out.println("Element removed: " + current.getValue());
+        System.out.println("Elemento removido: " + current.getValue());
         //caso o nó a ser removido for uma folha ou seja não tem filhos,
         //será verificado em que direção se encontra o nó a ser removido em relação ao pai (direita/esquerda)
         //e então o nó é removido
@@ -146,7 +150,7 @@ public class BinaryTree<T extends Comparable<T>> {
             //elemento encontrado.
             if(comp.compare(current.getValue(), target.getValue()) == 0){
                 System.out.println(current.getValue());
-                System.out.println("Number of elements traversed: " + count);
+                System.out.println("Quantidade de elementos percorrido: " + count);
                 return;
             }else if(comp.compare(current.getValue(), target.getValue()) > 0){
                 //se o valor alvo for menor que o atual, segue pela esquerda do nó atual.
@@ -158,8 +162,8 @@ public class BinaryTree<T extends Comparable<T>> {
             count++;
         }
         if(current == null){
-            System.out.println("Element not found in tree");
-            System.out.println("Number of elements traversed: " + count);
+            System.out.println("Elemento nao consta na arvore!");
+            System.out.println("Quantidade de elementos percorrido: " + count);
         }
     }
 
@@ -271,10 +275,10 @@ public class BinaryTree<T extends Comparable<T>> {
 
     //método para exibir às estatísticas da árvore
     public void statistic(){
-        System.out.println("Number of elements in tree: " + this.numberOfElements());
-        System.out.println("Height of the tree: " + this.height());
-        System.out.println("Biggest elements in tree: " + this.biggest().getValue());
-        System.out.println("Smallest elements in tree: " + this.smallest().getValue());
+        System.out.println("Quantidade de elementos na arvore: " + this.numberOfElements());
+        System.out.println("Altura: " + this.height());
+        System.out.println("Menor elemento: " + this.smallest().getValue());
+        System.out.println("Maior elemento: " + this.biggest().getValue());
     }
 
     //método para escrever no arquivo de saída de forma ordenada

@@ -1,7 +1,7 @@
-import controller.MenuController;
 import entities.BinaryTree;
 import entities.CompareById;
 import entities.CompareByName;
+import entities.MenuController;
 import entities.Student;
 
 import java.io.BufferedReader;
@@ -39,9 +39,9 @@ public class Main {
 
         do{
             menu.displayTreeOptions();
-            int tree = Integer.parseInt(con.readLine("Tree Type: "));
+            int tree = Integer.parseInt(con.readLine("Tipo da arvore: "));
             menu.displayOptions();
-            option = Integer.parseInt(con.readLine("Option: "));
+            option = Integer.parseInt(con.readLine("Opcao: "));
             MenuController.limparTela();
             menu.optionsSelected(option, tree);
         }while(option != 7);

@@ -1,7 +1,4 @@
-package controller;
-
-import entities.BinaryTree;
-import entities.Student;
+package entities;
 
 import java.io.*;
 
@@ -62,16 +59,26 @@ public class MenuController {
     }
 
     public void insertStudent(int tree){
-        Integer id = Integer.parseInt(con.readLine("Insira a matricula do aluno: "));
-        String name = con.readLine("Insira o nome do aluno: ");
-        Double score = Double.parseDouble(con.readLine("Insira a nota do aluno: "));
+        boolean condition = false;
 
-        Student std = new Student(id, name, score);
+        while(!condition){
+            try {
+                Integer id = Integer.parseInt(con.readLine("Insira a matricula do aluno: "));
+                String name = con.readLine("Insira o nome do aluno: ");
+                Double score = Double.parseDouble(con.readLine("Insira a nota do aluno: "));
+                
+                condition = !condition;
 
-        if(tree == 1)
-            treeByName.insert(std);
-        else
-            treeById.insert(std);
+                Student std = new Student(id, name, score);
+
+                if(tree == 1)
+                    treeByName.insert(std);
+                else
+                    treeById.insert(std);
+            } catch (Exception e) {
+                System.out.println("Dados invalidos!");
+            }
+        }
     }
 
     public void searchStudent(int tree){
@@ -123,6 +130,8 @@ public class MenuController {
         } catch (IOException e){
             System.out.println("Erro ao gerar arquivo de saída: " + e.getMessage());
         }
+
+        System.out.println("Arquivo 'arquivoSaida.txt' gerado com sucesso!");
     }
 
    public static void limparTela() throws IOException, InterruptedException {
