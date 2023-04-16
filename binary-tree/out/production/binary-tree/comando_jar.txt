@@ -1,0 +1,2 @@
+#Execute o comando abaixo em terminal
+java -jar binary-tree.jar

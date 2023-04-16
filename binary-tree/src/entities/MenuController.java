@@ -2,7 +2,7 @@ package entities;
 
 import java.io.*;
 
-public class MenuController {
+public class MenuController<T> {
 
     private BinaryTree<Student> treeById;
     private BinaryTree<Student> treeByName;
@@ -40,7 +40,7 @@ public class MenuController {
         }
 
         if(option == 1){
-            insertStudent(tree);
+            insertStudent();
         }else if(option == 2){
             searchStudent(tree);
         }else if(option == 3){
@@ -58,7 +58,7 @@ public class MenuController {
         }
     }
 
-    public void insertStudent(int tree){
+    public void insertStudent(){
         boolean condition = false;
 
         while(!condition){
@@ -71,10 +71,8 @@ public class MenuController {
 
                 Student std = new Student(id, name, score);
 
-                if(tree == 1)
-                    treeByName.insert(std);
-                else
-                    treeById.insert(std);
+                treeByName.insert(std);
+                treeById.insert(std);
             } catch (Exception e) {
                 System.out.println("Dados invalidos!");
             }
@@ -94,10 +92,18 @@ public class MenuController {
     public void removeStudent(int tree){
         if(tree == 1){
             String name = con.readLine("Insira o nome do aluno a ser removido: ");
-            treeByName.remove(new Student(name));
+            Node<Student> std = treeByName.remove(new Student(name));
+            if(std != null){
+                System.out.println("Elemento removido: " + std.getValue());
+                treeById.remove(std.getValue());
+            }
         }else{
             Integer id = Integer.parseInt(con.readLine("Insira a matricula do aluno a ser removido: "));
-            treeById.remove(new Student(id));
+            Node<Student> std = treeById.remove(new Student(id));
+            if(std != null){
+                System.out.println("Elemento removido: " + std.getValue());
+                treeByName.remove(std.getValue());
+            }
         }
     }
 

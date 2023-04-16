@@ -59,7 +59,7 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     //método para remover um elemento da árvore
-    private void remove(Node<T> current, Node<T> target){
+    private Node<T> remove(Node<T> current, Node<T> target){
         Node<T> father = null;
         //lógica: enquanto o nó atual não for nulo e diferente do nó a ser removido,
         //o nó atual é armazenado em uma variável(father) e então o nó atual passa a ser
@@ -77,10 +77,10 @@ public class BinaryTree<T extends Comparable<T>> {
         //ele estará armazenado na variável (current).
         if (current == null){
             System.out.println("Elemento nao encontrado!");
-            return;
+            return null;
         }
 
-        System.out.println("Elemento removido: " + current.getValue());
+        Node<T>removed = new Node(current.getValue());
         //caso o nó a ser removido for uma folha ou seja não tem filhos,
         //será verificado em que direção se encontra o nó a ser removido em relação ao pai (direita/esquerda)
         //e então o nó é removido
@@ -134,24 +134,25 @@ public class BinaryTree<T extends Comparable<T>> {
                 biggestNodeFather.setLeft(biggestNode.getLeft());
             }
         }
+        return removed;
     }
 
-    public void remove(T value){
+    public Node<T> remove(T value){
         Node<T> target = new Node<T>(value);
-        remove(root, target);
+        return remove(root, target);
     }
 
     //método para buscar um elemento na árvore
-    private void searchElement(Node<T> target){
+    private Node<T> searchElement(Node<T> target){
         Node<T> current = root;
-        int count = 0;
+        int count = 1;
         //loop para varrer a árvore.
         while(current != null){
             //elemento encontrado.
             if(comp.compare(current.getValue(), target.getValue()) == 0){
                 System.out.println(current.getValue());
                 System.out.println("Quantidade de elementos percorrido: " + count);
-                return;
+                return current;
             }else if(comp.compare(current.getValue(), target.getValue()) > 0){
                 //se o valor alvo for menor que o atual, segue pela esquerda do nó atual.
                 current = current.getLeft();
@@ -165,11 +166,12 @@ public class BinaryTree<T extends Comparable<T>> {
             System.out.println("Elemento nao consta na arvore!");
             System.out.println("Quantidade de elementos percorrido: " + count);
         }
+        return null;
     }
 
-    public void search(T value){
+    public Node<T> search(T value){
         Node<T> target = new Node<T>(value);
-        searchElement(target);
+        return searchElement(target);
     }
 
     //método recursivo para imprimir a árvore em ordem,

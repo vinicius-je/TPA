@@ -14,7 +14,7 @@ public class Main {
         BinaryTree<Student> treeById = new BinaryTree<Student>(new CompareById());
         BinaryTree<Student> treeByName = new BinaryTree<Student>(new CompareByName());
         //caminho do arquivo
-        String path = "src\\students.txt";
+        String path = "entradaBalanceada1000.txt";
 
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             //Leitura da quantidade de elementos da lista
