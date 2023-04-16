@@ -277,6 +277,7 @@ public class BinaryTree<T extends Comparable<T>> {
 
     //método para exibir às estatísticas da árvore
     public void statistic(){
+        System.out.println("Raiz: " + root.getValue());
         System.out.println("Quantidade de elementos na arvore: " + this.numberOfElements());
         System.out.println("Altura: " + this.height());
         System.out.println("Menor elemento: " + this.smallest().getValue());
