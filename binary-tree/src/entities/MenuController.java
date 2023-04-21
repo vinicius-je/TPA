@@ -92,17 +92,17 @@ public class MenuController<T> {
     public void removeStudent(int tree){
         if(tree == 1){
             String name = con.readLine("Insira o nome do aluno a ser removido: ");
-            Node<Student> std = treeByName.remove(new Student(name));
+            Student std = treeByName.remove(new Student(name));
             if(std != null){
-                System.out.println("Elemento removido: " + std.getValue());
-                treeById.remove(std.getValue());
+                System.out.println("Elemento removido: " + std);
+                treeById.remove(std);
             }
         }else{
             Integer id = Integer.parseInt(con.readLine("Insira a matricula do aluno a ser removido: "));
-            Node<Student> std = treeById.remove(new Student(id));
+            Student std = treeById.remove(new Student(id));
             if(std != null){
-                System.out.println("Elemento removido: " + std.getValue());
-                treeByName.remove(std.getValue());
+                System.out.println("Elemento removido: " + std);
+                treeByName.remove(std);
             }
         }
     }
