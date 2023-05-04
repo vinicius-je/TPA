@@ -1,0 +1,11 @@
+10
+1;Isadora Martins;9
+2;Jessica Ribeiro;6.0
+3;Rafael Souza;8.5
+4;Gustavo Silva;7.5
+5;Luciana Oliveira;6.5
+6;Bruna Lima;8.0
+7;Fernando Santos;8.0
+8;Vinicius Almeida;7.0
+9;Felipe Costa;9.5
+10;Ana Paula;7.7
