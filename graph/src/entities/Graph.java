@@ -13,7 +13,7 @@ public class Graph<T> {
         return newVertex;
     }
 
-    private Vertex getVertex(T value){
+    public Vertex getVertex(T value){
         //Percorre a lista de vertice até encontrar o valor desejado, caso contrário toda a lista
         //será percorrida e então será retornado null
         for(Vertex current : vertices){
@@ -71,4 +71,10 @@ public class Graph<T> {
             }
         }
     }
+
+    public ArrayList<Vertex<T>> getVertices() {
+        return vertices;
+    }
+
+    
 }
