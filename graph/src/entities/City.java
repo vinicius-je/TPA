@@ -10,6 +10,10 @@ public class City {
         this.name = name;
     }
 
+    public City(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -54,6 +58,6 @@ public class City {
 
     @Override
     public String toString() {
-        return "[id=" + id + ", name=" + name + "]";
+        return "id=" + id + ", name=" + name;
     }
 }

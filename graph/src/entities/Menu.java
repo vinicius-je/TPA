@@ -17,52 +17,31 @@ public class Menu {
     }
 
     public void readOption(Integer option){
-        // if (option == 1){
-        //     addNewVertex();
-        // }else if (option == 2){
-        //     addNewEdge();
-        // }else if (option == 3){
-        //     graph.breadthFirstSearch();
-        // }else if (option == 4){
-        //     System.out.println("OUT!");
-        // }else{
-        //     System.out.println("Opção Inválida!");
-        // }
-
         if(option == 1){
             neighboringCities();
         }else if(option == 2){
-
+            allPathPerCity();
         }else if(option == 3){
-
+            System.out.println("\n\tOUT!");
         }else{
-            System.out.println("Opção Inválida!");
+            System.out.println("\n\tOpção Inválida!");
         }
     }
 
     public void neighboringCities(){
-        Integer id = Integer.parseInt(con.readLine("Codigo da cidade: "));
-        Vertex vertex = graph.getVertex(new City(id, null));
+        Integer id = Integer.parseInt(con.readLine("\n\tCodigo da cidade: "));
+        Vertex vertex = graph.getVertex(new City(id));
 
         List<Edge> edges = vertex.getDestinations();
 
         for(Edge edge : edges){
-            System.out.println(edge.getDestination());
+            System.out.println("\t" + edge.getDestination() + ", weight=" + edge.getWeight());
         }
     }
 
-    public void addNewVertex(){
-        String city = con.readLine("\n\tNome da cidade: ");
-        Vertex vertex =  graph.addVertex(city);
-        System.out.println("\n\tVertice: " + vertex + " adicionado ao grafo!");
-    }
-
-    public void addNewEdge(){
-        String origin = con.readLine("\n\tOrigem: ");
-        String destionation = con.readLine("\n\tDestino: ");
-        Double weight = Double.parseDouble(con.readLine("\n\tPeso: "));
-        graph.addEdge(origin, destionation, weight);
-        System.out.println("\n\tAresta adicionado com sucesso!");
+    public void allPathPerCity(){
+        Integer id = Integer.parseInt(con.readLine("\n\tCodigo da cidade: "));
+        graph.breadthFirstSearch(new City(id));
     }
 
 }

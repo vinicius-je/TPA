@@ -43,12 +43,12 @@ public class Graph<T> {
         originAux.addDestination(new Edge(destinationAux, weight));
     }
 
-    public void breadthFirstSearch(){
+    public void breadthFirstSearch(T value){
         ArrayList<Vertex> marked = new ArrayList<>();
         ArrayList<Vertex> queue = new ArrayList<>();
         //Seleciono o primeiro vertice como ponto de partida e então o mesmo é
         //adicionado na fila
-        Vertex current = vertices.get(0);
+        Vertex current = this.getVertex(value);
         queue.add(current);
 
         while (queue.size() > 0){
@@ -67,6 +67,7 @@ public class Graph<T> {
                 nextVertex = destinations.get(i).getDestination();
                 if(!marked.contains(nextVertex)){
                     queue.add(nextVertex);
+                    marked.add(nextVertex);
                 }
             }
         }
