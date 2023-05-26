@@ -1,12 +1,16 @@
 package entities;
-
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
-//Modelo: Listas de adjacência
+/***********************************
+ * @Autor: Vinícius Estevam
+ * Modelo: Listas de adjacência
+ ***********************************/
 
 public class Graph<T> {
     private ArrayList<Vertex<T>> vertices = new ArrayList<>();
-
+    
     public Vertex<T> addVertex(T valor){
         Vertex<T> newVertex = new Vertex<T>(valor);
         vertices.add(newVertex);
@@ -14,8 +18,7 @@ public class Graph<T> {
     }
 
     public Vertex getVertex(T value){
-        //Percorre a lista de vertice até encontrar o valor desejado, caso contrário toda a lista
-        //será percorrida e então será retornado null
+        //Percorre a lista de vertice até encontrar o valor desejado, caso contrário será retornado null
         for(Vertex current : vertices){
             if(current.getValue().equals(value)){
                 return current;
@@ -45,20 +48,19 @@ public class Graph<T> {
 
     public void breadthFirstSearch(T value){
         ArrayList<Vertex> marked = new ArrayList<>();
-        ArrayList<Vertex> queue = new ArrayList<>();
-        //Seleciono o primeiro vertice como ponto de partida e então o mesmo é
-        //adicionado na fila
+        Queue<Vertex> queue = new LinkedList<>();
+        //Seleciono vertice informado pelo usuário como ponto de partida
+        //e então o mesmo é adicionado na fila
         Vertex current = this.getVertex(value);
         queue.add(current);
 
         while (queue.size() > 0){
-            current = queue.get(0);
             //Remoção do vertice da vez da fila
-            queue.remove(0);
+            current = queue.poll();
             //O vertice da vez é adicionado na lista de marcados
             marked.add(current);
-            System.out.println(current.getValue());
-
+            
+            System.out.println("\t" + current.getValue());
             //Seleciona os vertices adjacente
             ArrayList<Edge> destinations = current.getDestinations();
             
@@ -66,7 +68,9 @@ public class Graph<T> {
             for(int i = 0; i < destinations.size(); i++){
                 nextVertex = destinations.get(i).getDestination();
                 if(!marked.contains(nextVertex)){
+                    //Adiciona o proximo vertice na fila
                     queue.add(nextVertex);
+                    //Marca o vertice como visitado
                     marked.add(nextVertex);
                 }
             }
@@ -76,6 +80,4 @@ public class Graph<T> {
     public ArrayList<Vertex<T>> getVertices() {
         return vertices;
     }
-
-    
 }

@@ -24,6 +24,6 @@ public class Vertex<T> {
 
     @Override
     public String toString() {
-        return "Vertex >> " + value;
+        return ">> " + value;
     }
 }

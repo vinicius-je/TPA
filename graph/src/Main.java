@@ -17,6 +17,7 @@ public class Main {
         try (BufferedReader br = new BufferedReader(new FileReader(path))){
             //ler a primeira linha (quantidade de elementos)
             Integer qtd = Integer.parseInt(br.readLine());
+            System.out.println("\tO programa contém " + qtd + " cidades");
             //Leituras dos vértices
             for(int i = 0; i < qtd; i++){
                 String cities[] = br.readLine().split(",");

@@ -30,7 +30,7 @@ public class City {
         this.name = name;
     }
 
-    
+    //Gera o código hash a a partir do id
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -58,6 +58,6 @@ public class City {
 
     @Override
     public String toString() {
-        return "id=" + id + ", name=" + name;
+        return String.format("id=%-10d | name=%-15s |", id, name);
     }
 }

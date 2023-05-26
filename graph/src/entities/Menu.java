@@ -13,6 +13,14 @@ public class Menu {
     }
 
     public void display(){
+        String asciiText = " \n\n\t██████╗ ██████╗  █████╗ ███████╗ ██████╗ ███████╗\n"
+                         + "\t██╔════╝ ██╔══██╗██╔══██╗██╔════╝██╔═══██╗██╔════╝\n"
+                         + "\t██║  ███╗██████╔╝███████║█████╗  ██║   ██║███████╗\n"
+                         + "\t██║   ██║██╔══██╗██╔══██║██╔══╝  ██║   ██║╚════██║\n"
+                         + "\t╚██████╔╝██║  ██║██║  ██║██║     ╚██████╔╝███████║\n"
+                         + " \t╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝      ╚═════╝ ╚══════╝";
+
+        System.out.println(asciiText);
         System.out.println("\n\t[1] >> Cidades Vizinhas\n\t[2] >> Todos os caminhos por cidade\n\t[3] >> Sair");
     }
 
@@ -29,19 +37,42 @@ public class Menu {
     }
 
     public void neighboringCities(){
-        Integer id = Integer.parseInt(con.readLine("\n\tCodigo da cidade: "));
-        Vertex vertex = graph.getVertex(new City(id));
+        boolean loop = true;
+  
+        while(loop){
+            try {
+                Integer id = Integer.parseInt(con.readLine("\n\tCodigo da cidade: "));
+                Vertex vertex = graph.getVertex(new City(id));
 
-        List<Edge> edges = vertex.getDestinations();
+                //conversão do object para cidade, somente para exibir o nome
+                City city = (City) vertex.getValue();
+                //recupera os destinos a partir da cidade selecionada
+                List<Edge> edges = vertex.getDestinations();
 
-        for(Edge edge : edges){
-            System.out.println("\t" + edge.getDestination() + ", weight=" + edge.getWeight());
+                System.out.println("\tCidades vizinhas de: " + city.getName());
+                System.out.println("\n\tCódigo\t\t | Cidade\t\t| Distância");
+                for(Edge edge : edges){
+                    System.out.println("\t" + edge.getDestination() + " weight=" + edge.getWeight());
+                }
+
+                loop = !loop;
+            } catch (Exception e) {
+                System.out.println("\tCidade não econtrada, tente outra!");
+            }
         }
     }
 
     public void allPathPerCity(){
-        Integer id = Integer.parseInt(con.readLine("\n\tCodigo da cidade: "));
-        graph.breadthFirstSearch(new City(id));
+        boolean loop = true;
+
+        while(loop){
+            try {
+                Integer id = Integer.parseInt(con.readLine("\n\tCodigo da cidade: "));
+                graph.breadthFirstSearch(new City(id));
+            } catch (Exception e) {
+                System.out.println("\tCidade não econtrada, tente outra!");
+            }
+        }
     }
 
 }
