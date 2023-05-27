@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
         Console con = System.console();
 
         Graph graph = new Graph<>();
@@ -46,6 +46,7 @@ public class Main {
         do{
             menu.display();
             option = Integer.parseInt(con.readLine("\n\tDigite a opção: "));
+            menu.cleanConsole();
             menu.readOption(option);
         }while(option != 3);
     }

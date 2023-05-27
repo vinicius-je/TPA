@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Console;
+import java.io.IOException;
 import java.util.List;
 
 public class Menu {
@@ -69,9 +70,19 @@ public class Menu {
             try {
                 Integer id = Integer.parseInt(con.readLine("\n\tCodigo da cidade: "));
                 graph.breadthFirstSearch(new City(id));
+                loop = !loop;
             } catch (Exception e) {
                 System.out.println("\tCidade não econtrada, tente outra!");
             }
+        }
+    }
+
+    public static void cleanConsole() throws IOException, InterruptedException {
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("win")) {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } else {
+            Runtime.getRuntime().exec("clear");
         }
     }
 
