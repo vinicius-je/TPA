@@ -1,5 +1,6 @@
 package entities;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -79,5 +80,48 @@ public class Graph<T> {
 
     public ArrayList<Vertex<T>> getVertices() {
         return vertices;
+    }
+
+    public Graph<T> minimumSpanningTree(){
+        Graph<T> graph = new Graph<>();
+        ArrayList<Vertex<T>> marked = new ArrayList<>();
+        Queue<Vertex<T>> queue = new LinkedList<>();
+        //Seleciona o primeior nó do grafo
+        Vertex<T> current = this.getVertices().get(0);
+        //Adiciona o primeiro vértice do grafo na fila
+        queue.add(current);
+        //Adiciona a primeira cidade como um novo vértice no grafo
+        graph.addVertex(current.getValue());
+        Edge<T> smaller;
+
+        while(!queue.isEmpty()){
+            //Remove o vértice atual da fila
+            current = queue.poll();
+            //Marca o vértice atual como visitada
+            marked.add(current);
+            //Recebe as arestas do vértice atual
+            ArrayList<Edge> edges = current.getDestinations();
+
+            if(edges.size() > 0){
+                //Seleciona a primeira aresta como a menor
+                smaller = edges.get(0);
+                for(int i = 1; i < edges.size(); i++){
+                    //Compara se a distância atual é maior do que a distância corrente segundo o index
+                    if(!marked.contains(edges.get(i).getDestination()) && smaller.compareTo(edges.get(i)) > 0){
+                        smaller = edges.get(i);
+                    }
+                }    
+
+                if(!marked.contains(smaller.getDestination())){
+                    //Adiciona o vértice mais próxima do vértice atual na fila   
+                    queue.add(smaller.getDestination());
+                    //Adiciona a cidade vizinha do vértice atual como um novo vértice no grafo
+                    graph.addVertex(smaller.getDestination().getValue());
+                    //Adicionar uma nova aresta
+                    graph.addEdge(current.getValue(), smaller.getDestination().getValue(), smaller.getWeight());
+                }
+            }
+        }
+        return graph;
     }
 }

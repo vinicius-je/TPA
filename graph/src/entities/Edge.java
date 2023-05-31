@@ -1,6 +1,6 @@
 package entities;
 
-public class Edge<T> {
+public class Edge<T> implements Comparable<Edge<T>> {
     private Vertex<T> destination;
     private Double weight;
 
@@ -14,7 +14,12 @@ public class Edge<T> {
     }
 
     public Double getWeight(){
-        return weight;
+        return weight;  
+    }
+
+    @Override
+    public int compareTo(Edge<T> edge){
+        return Double.compare(this.weight, edge.getWeight());
     }
 
 }

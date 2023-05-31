@@ -22,7 +22,8 @@ public class Menu {
                          + " \t╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝      ╚═════╝ ╚══════╝";
 
         System.out.println(asciiText);
-        System.out.println("\n\t[1] >> Cidades Vizinhas\n\t[2] >> Todos os caminhos por cidade\n\t[3] >> Sair");
+        System.out.println("\n\t[1] >> Cidades Vizinhas\n\t[2] >> Todos os caminhos por cidade\n\t" +
+                            "[3] >> Calcular Árvore geradora mínima\n\t[4] >> Sair");
     }
 
     public void readOption(Integer option){
@@ -31,6 +32,8 @@ public class Menu {
         }else if(option == 2){
             allPathPerCity();
         }else if(option == 3){
+            minimumSpanningTree();
+        }else if(option == 4){
             System.out.println("\n\tOUT!");
         }else{
             System.out.println("\n\tOpção Inválida!");
@@ -75,6 +78,11 @@ public class Menu {
                 System.out.println("\tCidade não econtrada, tente outra!");
             }
         }
+    }
+
+    public void minimumSpanningTree(){
+        Graph newGraph = graph.minimumSpanningTree();
+        newGraph.breadthFirstSearch(new City(1));
     }
 
     public static void cleanConsole() throws IOException, InterruptedException {
