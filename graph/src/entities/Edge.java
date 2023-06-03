@@ -22,4 +22,11 @@ public class Edge<T> implements Comparable<Edge<T>> {
         return Double.compare(this.weight, edge.getWeight());
     }
 
+    @Override
+    public String toString() {
+        return " ---> " + destination + " | " + weight;
+    }
+
+    
+
 }

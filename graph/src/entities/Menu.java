@@ -82,7 +82,6 @@ public class Menu {
 
     public void minimumSpanningTree(){
         Graph newGraph = graph.minimumSpanningTree();
-        newGraph.breadthFirstSearch(new City(1));
     }
 
     public static void cleanConsole() throws IOException, InterruptedException {

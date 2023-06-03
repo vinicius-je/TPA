@@ -1,6 +1,5 @@
 package entities;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -119,9 +118,33 @@ public class Graph<T> {
                     graph.addVertex(smaller.getDestination().getValue());
                     //Adicionar uma nova aresta
                     graph.addEdge(current.getValue(), smaller.getDestination().getValue(), smaller.getWeight());
+                    System.out.println("\t" + current.getValue() + " ---> " + smaller.getDestination().getValue() + " Peso=" + smaller.getWeight());
                 }
             }
         }
+        System.out.println("\n\tSoma total dos pesos da aresta: " + graph.edgesSum());
         return graph;
+    }
+
+    private Double edgesSum(){
+        Double total = 0.0;
+        //Lista de arestas
+        ArrayList<Edge> edgeList = new ArrayList<>();
+
+        for(Vertex vertex : this.vertices){
+            //Recebe as arestas do vértice atual
+            ArrayList<Edge> edges = vertex.getDestinations();
+            for(Edge edge : edges){
+                //Verifica se a aresta já consta na lista, caso contrário a mesma é adicionada
+                if(!edgeList.contains(edge)){
+                    edgeList.add(edge);
+                }
+            }
+        }
+        //Soma dos pesos das arestas
+        for(Edge edge : edgeList){
+            total += edge.getWeight();
+        }
+        return total;
     }
 }
