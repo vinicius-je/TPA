@@ -118,11 +118,12 @@ public class Graph<T> {
                     graph.addVertex(smaller.getDestination().getValue());
                     //Adicionar uma nova aresta
                     graph.addEdge(current.getValue(), smaller.getDestination().getValue(), smaller.getWeight());
-                    System.out.println("\t" + current.getValue() + " ---> " + smaller.getDestination().getValue() + " Peso=" + smaller.getWeight());
+                    graph.addEdge(smaller.getDestination().getValue(), current.getValue(), smaller.getWeight());
+                    System.out.println("\t" + current.getValue() + " <---> " + smaller.getDestination().getValue() + " Peso=" + smaller.getWeight());
                 }
             }
         }
-        System.out.println("\n\tSoma total dos pesos da aresta: " + graph.edgesSum());
+        System.out.println("\n\tSoma total dos pesos da aresta: " + String.format("%.2f", graph.edgesSum()));
         return graph;
     }
 
@@ -145,6 +146,6 @@ public class Graph<T> {
         for(Edge edge : edgeList){
             total += edge.getWeight();
         }
-        return total;
+        return total / 2;
     }
 }

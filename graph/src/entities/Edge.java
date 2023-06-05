@@ -26,7 +26,4 @@ public class Edge<T> implements Comparable<Edge<T>> {
     public String toString() {
         return " ---> " + destination + " | " + weight;
     }
-
-    
-
 }
