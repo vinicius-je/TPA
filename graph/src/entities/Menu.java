@@ -23,7 +23,7 @@ public class Menu {
 
         System.out.println(asciiText);
         System.out.println("\n\t[1] >> Cidades Vizinhas\n\t[2] >> Todos os caminhos por cidade\n\t" +
-                            "[3] >> Calcular Árvore geradora mínima\n\t[4] >> Sair");
+                            "[3] >> Calcular Árvore geradora mínima\n\t[4] - teste\n\t[5] >> Sair");
     }
 
     public void readOption(Integer option){
@@ -34,6 +34,8 @@ public class Menu {
         }else if(option == 3){
             minimumSpanningTree();
         }else if(option == 4){
+            teste();
+        }else if(option == 5){
             System.out.println("\n\tOUT!");
         }else{
             System.out.println("\n\tOpção Inválida!");
@@ -81,7 +83,7 @@ public class Menu {
     }
 
     public void minimumSpanningTree(){
-        Graph newGraph = graph.minimumSpanningTree();
+        Graph newGraph = graph.prim();
     }
 
     public static void cleanConsole() throws IOException, InterruptedException {
@@ -91,6 +93,12 @@ public class Menu {
         } else {
             Runtime.getRuntime().exec("clear");
         }
+    }
+
+    public void teste(){
+        Integer origin = Integer.parseInt(con.readLine("Origem: "));
+        Integer destination = Integer.parseInt(con.readLine("Destino: "));
+        graph.dijkstra(new City(origin), new City(destination));
     }
 
 }

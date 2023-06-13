@@ -2,9 +2,9 @@ package entities;
 
 public class Edge<T> implements Comparable<Edge<T>> {
     private Vertex<T> destination;
-    private Double weight;
+    private double weight;
 
-    public Edge(Vertex<T> destination, Double weight) {
+    public Edge(Vertex<T> destination, double weight) {
         this.destination = destination;
         this.weight = weight;
     }
@@ -13,7 +13,7 @@ public class Edge<T> implements Comparable<Edge<T>> {
         return destination;
     }
 
-    public Double getWeight(){
+    public double getWeight(){
         return weight;  
     }
 

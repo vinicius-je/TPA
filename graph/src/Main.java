@@ -28,7 +28,7 @@ public class Main {
             for(int i = 1; i <= qtd; i++){
                 String edgeList[] = br.readLine().split(",");
                 for(int j = 1; j <= qtd; j++){
-                    Double weight =  Double.parseDouble(edgeList[j-1]);
+                    double weight =  Double.parseDouble(edgeList[j-1]);
                     if(weight != 0.00){
                         graph.addEdge(new City(i), new City(j), weight);
                     }
@@ -48,7 +48,7 @@ public class Main {
             option = Integer.parseInt(con.readLine("\n\tDigite a opção: "));
             menu.cleanConsole();
             menu.readOption(option);
-        }while(option != 4);
+        }while(option != 5);
     }
 
 }

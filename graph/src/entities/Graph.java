@@ -1,6 +1,7 @@
 package entities;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /***********************************
@@ -81,7 +82,7 @@ public class Graph<T> {
         return vertices;
     }
 
-    public Graph<T> minimumSpanningTree(){
+    public Graph<T> prim(){
         Graph<T> graph = new Graph<>();
         ArrayList<Vertex<T>> marked = new ArrayList<>();
         Queue<Vertex<T>> queue = new LinkedList<>();
@@ -147,5 +148,57 @@ public class Graph<T> {
             total += edge.getWeight();
         }
         return total / 2;
+    }
+
+    public void dijkstra(T origin, T destination){
+        //Lista de distâncias
+        List<Double> distances = new ArrayList<>();
+        //Lista de predecessores
+        List<Integer> previous = new ArrayList<>();
+        //Lista de vértices visitados
+        List<Vertex> marked = new LinkedList<>();
+
+        //Preenche a lista de distâncias com o maior valor do inteiro
+        for(int i = 0; i <= vertices.size() - 1; i++){
+            distances.add(Double.MAX_VALUE);
+            previous.add(-1);
+        }
+
+        //Recupera o vertice de origem
+        Vertex current = getVertex(origin);
+        Integer originIndex = vertices.indexOf(current);
+        distances.set(originIndex, 0.0);
+
+        while(marked.size() < vertices.size() - 1){
+            marked.add(current);
+
+            ArrayList<Edge> listOfEdges = current.getDestinations();
+            for (Edge edge : listOfEdges) {
+                int edgeIndex = vertices.indexOf(edge.getDestination());
+                //Soma das arestas
+                Double sumOfEdges = distances.get(originIndex) + edge.getWeight();
+                //Compara se o valor da aresta é menor do que o valor estimado
+                if(!marked.contains(edge.getDestination()) && distances.get(edgeIndex) > sumOfEdges){
+                    //Atualiza os valores na lista de distância e de predecessores
+                    distances.set(edgeIndex, sumOfEdges);
+                    previous.set(edgeIndex, originIndex);
+                }
+            }
+            //Selecionar a menor aresta
+            Double shorterdistances = Double.MAX_VALUE;
+            for(int i = 0; i < distances.size(); i++){
+                //Verifica se o vétice já foi visitado
+                if(!marked.contains(vertices.get(i))){
+                    if(shorterdistances >= distances.get(i)){
+                        shorterdistances = distances.get(i);
+                        originIndex = i;
+                    }
+                }
+            }
+            //Seleciona o vértice de menor valor de aresta
+            current = vertices.get(distances.indexOf(shorterdistances));
+        }
+        System.out.println("Distâncias: " + distances);
+        System.out.println("Predecessores: " + previous);
     }
 }
