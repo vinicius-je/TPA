@@ -54,20 +54,20 @@ public class Graph<T> {
         //e então o mesmo é adicionado na fila
         Vertex current = this.getVertex(value);
         queue.add(current);
+        //O vertice atual é adicionado na lista de marcados
+        marked.add(current);
 
         while (queue.size() > 0){
             //Remoção do vertice da vez da fila
             current = queue.poll();
-            //O vertice da vez é adicionado na lista de marcados
-            marked.add(current);
             
             System.out.println("\t" + current.getValue());
             //Seleciona os vertices adjacente
             ArrayList<Edge> destinations = current.getDestinations();
             
-            Vertex nextVertex;
+            //Vertex nextVertex;
             for(int i = 0; i < destinations.size(); i++){
-                nextVertex = destinations.get(i).getDestination();
+                Vertex nextVertex = destinations.get(i).getDestination();
                 if(!marked.contains(nextVertex)){
                     //Adiciona o proximo vertice na fila
                     queue.add(nextVertex);
@@ -92,7 +92,6 @@ public class Graph<T> {
         queue.add(current);
         //Adiciona a primeira cidade como um novo vértice no grafo
         graph.addVertex(current.getValue());
-        Edge<T> smaller;
 
         while(!queue.isEmpty()){
             //Remove o vértice atual da fila
@@ -104,7 +103,7 @@ public class Graph<T> {
 
             if(edges.size() > 0){
                 //Seleciona a primeira aresta como a menor
-                smaller = edges.get(0);
+                Edge<T> smaller = edges.get(0);
                 for(int i = 1; i < edges.size(); i++){
                     //Compara se a distância atual é maior do que a distância corrente segundo o index
                     if(!marked.contains(edges.get(i).getDestination()) && smaller.compareTo(edges.get(i)) > 0){
@@ -198,7 +197,25 @@ public class Graph<T> {
             //Seleciona o vértice de menor valor de aresta
             current = vertices.get(distances.indexOf(shorterdistances));
         }
-        System.out.println("Distâncias: " + distances);
-        System.out.println("Predecessores: " + previous);
+        
+
+        String indexString = "Index: ";
+        String cityString = "Cidade: ";
+        String distanceString = "Distâncias: ";
+        String previouString = "Predecessores: ";
+        for(int i = 0; i < vertices.size(); i++){
+            City city = ((City)vertices.get(i).getValue());
+            indexString += i + " | ";
+            cityString += city.getId() + " | ";
+            distanceString += String.format("%.2f", distances.get(i)) + " | ";
+            previouString += previous.get(i) + " | ";
+        }
+
+        System.out.println(indexString);
+        System.out.println(cityString);
+        System.out.println(distanceString);
+        System.out.println(previouString);
+        // System.out.println("Distâncias: " + distances);
+        // System.out.println("Predecessores: " + previous);
     }
 }

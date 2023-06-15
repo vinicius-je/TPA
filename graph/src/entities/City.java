@@ -56,9 +56,6 @@ public class City {
         return true;
     }
 
-    
-    
-
     @Override
     public String toString() {
         return String.format("id=%-10d | name=%-15s |", id, name);

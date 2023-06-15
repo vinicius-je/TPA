@@ -48,7 +48,7 @@ public class Main {
             option = Integer.parseInt(con.readLine("\n\tDigite a opção: "));
             menu.cleanConsole();
             menu.readOption(option);
-        }while(option != 5);
+        }while(option != 6);
     }
 
 }

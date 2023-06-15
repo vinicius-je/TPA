@@ -23,7 +23,8 @@ public class Menu {
 
         System.out.println(asciiText);
         System.out.println("\n\t[1] >> Cidades Vizinhas\n\t[2] >> Todos os caminhos por cidade\n\t" +
-                            "[3] >> Calcular Árvore geradora mínima\n\t[4] - teste\n\t[5] >> Sair");
+            "[3] >> Calcular Árvore geradora mínima\n\t[4] >> Calcular caminho mínimo entre duas cidades" +
+            "\n\t[5] >> Calcular caminho m\u00EDnimo entre duas cidades considerando apenas a AGM \n\t[6] >> Sair");
     }
 
     public void readOption(Integer option){
@@ -34,8 +35,10 @@ public class Menu {
         }else if(option == 3){
             minimumSpanningTree();
         }else if(option == 4){
-            teste();
+            shortestPath(false);
         }else if(option == 5){
+            shortestPath(true);
+        }else if(option == 6){
             System.out.println("\n\tOUT!");
         }else{
             System.out.println("\n\tOpção Inválida!");
@@ -95,10 +98,16 @@ public class Menu {
         }
     }
 
-    public void teste(){
+    public void shortestPath(Boolean AGM){
         Integer origin = Integer.parseInt(con.readLine("Origem: "));
         Integer destination = Integer.parseInt(con.readLine("Destino: "));
-        graph.dijkstra(new City(origin), new City(destination));
+
+        if(AGM){
+            Graph graphAGM = graph.prim();
+            graphAGM.dijkstra(new City(origin), new City(destination));
+        }else{
+            graph.dijkstra(new City(origin), new City(destination));
+        }
     }
 
 }
