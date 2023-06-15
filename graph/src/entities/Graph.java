@@ -85,42 +85,40 @@ public class Graph<T> {
     public Graph<T> prim(){
         Graph<T> graph = new Graph<>();
         ArrayList<Vertex<T>> marked = new ArrayList<>();
-        Queue<Vertex<T>> queue = new LinkedList<>();
         //Seleciona o primeior nó do grafo
-        Vertex<T> current = this.getVertices().get(0);
-        //Adiciona o primeiro vértice do grafo na fila
-        queue.add(current);
+        Vertex<T> current = vertices.get(0);
         //Adiciona a primeira cidade como um novo vértice no grafo
         graph.addVertex(current.getValue());
-
-        while(!queue.isEmpty()){
-            //Remove o vértice atual da fila
-            current = queue.poll();
-            //Marca o vértice atual como visitada
-            marked.add(current);
-            //Recebe as arestas do vértice atual
-            ArrayList<Edge> edges = current.getDestinations();
-
-            if(edges.size() > 0){
-                //Seleciona a primeira aresta como a menor
-                Edge<T> smaller = edges.get(0);
-                for(int i = 1; i < edges.size(); i++){
-                    //Compara se a distância atual é maior do que a distância corrente segundo o index
-                    if(!marked.contains(edges.get(i).getDestination()) && smaller.compareTo(edges.get(i)) > 0){
-                        smaller = edges.get(i);
-                    }
-                }    
-
-                if(!marked.contains(smaller.getDestination())){
-                    //Adiciona o vértice mais próxima do vértice atual na fila   
-                    queue.add(smaller.getDestination());
-                    //Adiciona a cidade vizinha do vértice atual como um novo vértice no grafo
-                    graph.addVertex(smaller.getDestination().getValue());
-                    //Adicionar uma nova aresta
-                    graph.addEdge(current.getValue(), smaller.getDestination().getValue(), smaller.getWeight());
-                    graph.addEdge(smaller.getDestination().getValue(), current.getValue(), smaller.getWeight());
-                    System.out.println("\t" + current.getValue() + " <---> " + smaller.getDestination().getValue() + " Peso=" + smaller.getWeight());
+        //Marca o vértice atual como visitada
+        marked.add(current);
+        //usar o marked para loop
+        while(marked.size() < vertices.size()){
+            //Define uma aresta como referência para encontrar a menor aresta
+            Edge<T> smaller = new Edge<T>(Double.MAX_VALUE);
+            //Loop para percorrer os vértices marcados
+            for(int i = 0; i < marked.size(); i++){
+                //Recebe as arestas do vértice
+                ArrayList<Edge> edges = marked.get(i).getDestinations();
+                //Verifica se existe arestas no vértice atual
+                if(edges.size() > 0){
+                    for(int j = 0; j < edges.size(); j++){
+                        if(!marked.contains(edges.get(j).getDestination()) && smaller.getWeight() > edges.get(j).getWeight()){
+                            smaller = edges.get(j);
+                            current = marked.get(i);
+                        }
+                    }   
                 }
+            }
+
+            if(!marked.contains(smaller.getDestination())){
+                //Marca o vértice atual como visitada
+                marked.add(smaller.getDestination());
+                //Adiciona a cidade vizinha do vértice atual como um novo vértice no grafo
+                graph.addVertex(smaller.getDestination().getValue());
+                //Adicionar uma nova aresta
+                graph.addEdge(current.getValue(), smaller.getDestination().getValue(), smaller.getWeight());
+                graph.addEdge(smaller.getDestination().getValue(), current.getValue(), smaller.getWeight());
+                System.out.println("\t" + current.getValue() + " <---> " + smaller.getDestination().getValue() + " Peso=" + smaller.getWeight());
             }
         }
         System.out.println("\n\tSoma total dos pesos da aresta: " + String.format("%.2f", graph.edgesSum()));
@@ -198,7 +196,6 @@ public class Graph<T> {
             current = vertices.get(distances.indexOf(shorterdistances));
         }
         
-
         String indexString = "Index: ";
         String cityString = "Cidade: ";
         String distanceString = "Distâncias: ";
@@ -215,7 +212,5 @@ public class Graph<T> {
         System.out.println(cityString);
         System.out.println(distanceString);
         System.out.println(previouString);
-        // System.out.println("Distâncias: " + distances);
-        // System.out.println("Predecessores: " + previous);
     }
 }

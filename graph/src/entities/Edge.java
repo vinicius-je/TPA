@@ -9,6 +9,10 @@ public class Edge<T> implements Comparable<Edge<T>> {
         this.weight = weight;
     }
 
+    public Edge(double weight) {
+        this.weight = weight;
+    }
+
     public Vertex<T> getDestination(){
         return destination;
     }
