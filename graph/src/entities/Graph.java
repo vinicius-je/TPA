@@ -195,22 +195,11 @@ public class Graph<T> {
             //Seleciona o vértice de menor valor de aresta
             current = vertices.get(distances.indexOf(shorterdistances));
         }
-        
-        String indexString = "Index: ";
-        String cityString = "Cidade: ";
-        String distanceString = "Distâncias: ";
-        String previouString = "Predecessores: ";
+
         for(int i = 0; i < vertices.size(); i++){
             City city = ((City)vertices.get(i).getValue());
-            indexString += i + " | ";
-            cityString += city.getId() + " | ";
-            distanceString += String.format("%.2f", distances.get(i)) + " | ";
-            previouString += previous.get(i) + " | ";
+            System.out.println("\n\tindex: " + i + " | código-cidade: (" + city.getId() + "," + city.getName() + 
+                ") | distância: " + distances.get(i) + " | predecessor: " + previous.get(i));
         }
-
-        System.out.println(indexString);
-        System.out.println(cityString);
-        System.out.println(distanceString);
-        System.out.println(previouString);
     }
 }
